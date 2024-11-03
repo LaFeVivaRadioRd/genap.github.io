@@ -159,6 +159,21 @@ h1 {
     transition: background .2s ease-in-out;
 }
 
+@keyframes scrollText {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.scroll-text {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scrollText 10s linear infinite;
+}
+
 @media (min-width: 992px) {
     .mobile-nav-toggle {
         display: none;
