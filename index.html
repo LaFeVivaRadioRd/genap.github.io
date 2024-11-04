@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#08298a">
-    <title> Radio GenAp</title>
+    <title>Radio GenAp</title>
 
     <!-- Añadir el favicon -->
     <link rel="icon" href="https://i.ibb.co/T414C4v/Logo-Gen-Ap.png" type="image/x-icon">
@@ -80,7 +80,7 @@
             metadatatechnic: "fallback",
             corsproxy: "",
             usestreamcorsproxy: "false",
-            streamurl: "///////",
+            streamurl: "https://stream.zeno.fm/ajnldia1z5utv", // URL del stream de radio
             streamtype: "zeno",
             idzeno: "",
             icecastmountpoint: "",
@@ -129,7 +129,7 @@
         }
 
         // Crear una instancia del reproductor de radio con la URL de tu stream
-        const myRadio = new RadioPlayer("https://stream.zeno.fm/ajnldia1z5utv"); // Reemplaza con la URL de tu stream de radio
+        const myRadio = new RadioPlayer("https://stream.zeno.fm/ajnldia1z5utv"); // URL de tu stream de radio
 
         // Intentar iniciar la reproducción automáticamente
         myRadio.play();
@@ -154,6 +154,18 @@
             }
         });
 
+        // Verificar si el audio se reproduce en segundo plano y con la pantalla apagada
+        const checkAudioPlayback = () => {
+            const audio = document.querySelector("#player audio");
+            if (audio) {
+                if (audio.paused && document.visibilityState === 'hidden') {
+                    console.log("La reproducción se ha detenido en segundo plano. Intentando reiniciar.");
+                    audio.play().catch(err => console.error("Error al reiniciar la reproducción:", err));
+                }
+            }
+        };
+
+        document.addEventListener("visibilitychange", checkAudioPlayback);
     </script>
 
     <div class="background_hora">
@@ -180,19 +192,6 @@
         $("body").toggleClass("mobile-nav-active");
         $(".mobile-nav-toggle i").toggleClass("fa-bars fa-times");
     });
-
-    // Verificar si el audio se reproduce en segundo plano y con la pantalla apagada
-    const checkAudioPlayback = () => {
-        const audio = document.querySelector("#player audio");
-        if (audio) {
-            if (audio.paused && document.visibilityState === 'hidden') {
-                console.log("La reproducción se ha detenido en segundo plano. Intentando reiniciar.");
-                audio.play().catch(err => console.error("Error al reiniciar la reproducción:", err));
-            }
-        }
-    };
-
-    document.addEventListener("visibilitychange", checkAudioPlayback);
 </script>
 </body>
 </html>
