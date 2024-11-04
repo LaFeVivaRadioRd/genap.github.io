@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#08298a">
-    <title>Radio GenAp</title>
+    <title> Radio GenAp</title>
 
     <!-- Añadir el favicon -->
     <link rel="icon" href="https://i.ibb.co/T414C4v/Logo-Gen-Ap.png" type="image/x-icon">
@@ -23,12 +23,12 @@
             color: #272829;
         }
 
-        /* Estilos para la imagen del cover */
-        #player .cover-image {
-            width: 150px; /* Cambia el tamaño según lo desees */
-            height: 150px; /* Cambia el tamaño según lo desees */
-            box-shadow: 0 1px 51px rgba(0, 0, 0, 0.3); /* Sombra reducida */
-        }
+      /* Estilos para la imagen del cover */
+#player .cover-image {
+    width: 150px; /* Cambia el tamaño según lo desees */
+    height: 150px; /* Cambia el tamaño según lo desees */
+    box-shadow: 0 1px 51px rgba(0, 0, 0, 0.3); /* Sombra reducida */
+}
     </style>
 </head>
 
@@ -39,13 +39,15 @@
         <nav class="nav-menu">
             <ul>
                 <li><a target="_blank" href=" https://play.google.com/store/apps/details?id=radiogenap.cristiana"><i class="fab fa-google-play"></i> <span>Descarga nuestra APP</span></a></li>
+                
+                    </a>
+                </li>
                 <li><a target="_blank" href="https://www.facebook.com/radiogenapcristiana"><i class="fab fa-facebook-square" alt="Facebook"></i><span>Facebook</span></a></li>
                 <li>
                     <a href="https://api.whatsapp.com/send?phone=522361079311&text=Hola%20escucho%20la%20radio" target="_blank">
                         <i class="fab fa-whatsapp-square" alt="Whatsapp"></i>
                         <span>Whatsapp</span>
                     </a>
-                </li>
                 <li>
                     <a target="_blank" href="https://www.youtube.com/@luisbuenotv">
                         <i class="fab fa-youtube"></i>
@@ -55,6 +57,8 @@
                 <li><a target="_blank" href=" https://www.tiktok.com/@radiogenapcristiana"><i class="fab fa-tiktok"></i><span>TikTok</span></a></li>
                 <li><a target="_blank" href="https://www.instagram.com/radiogenapcristiana"><i class="fab fa-instagram"></i><span>Instagram</span></a></li>
                 <li><a target="_blank" href="https://www.paypal.me/cantanteluisbueno"><i class="fab fa-paypal"></i><span>PayPal</span></a></li>
+
+
             </ul>
         </nav>
     </header>
@@ -80,7 +84,7 @@
             metadatatechnic: "fallback",
             corsproxy: "",
             usestreamcorsproxy: "false",
-            streamurl: "https://stream.zeno.fm/ajnldia1z5utv", // URL del stream de radio
+            streamurl: "https://stream.zeno.fm/ajnldia1z5utv",
             streamtype: "zeno",
             idzeno: "",
             icecastmountpoint: "",
@@ -98,74 +102,6 @@
             color3: "#FF1F6F",
             color4: "#FF1F6F",
         });
-
-        // Crear una clase para manejar la radio
-        class RadioPlayer {
-            constructor(streamUrl) {
-                this.audio = new Audio(streamUrl);
-                this.audio.loop = true; // Reproducir en bucle
-                this.audio.volume = 1.0; // Volumen máximo
-                this.isPlaying = false; // Estado de reproducción
-            }
-
-            // Método para iniciar la reproducción
-            play() {
-                if (!this.isPlaying) {
-                    this.audio.play().then(() => {
-                        this.isPlaying = true;
-                        console.log("Reproduciendo en segundo plano.");
-                    }).catch(error => {
-                        console.error("Error al intentar reproducir:", error);
-                    });
-                }
-            }
-
-            // Método para detener la reproducción
-            stop() {
-                this.audio.pause();
-                this.audio.currentTime = 0; // Reiniciar al principio
-                this.isPlaying = false;
-            }
-        }
-
-        // Crear una instancia del reproductor de radio con la URL de tu stream
-        const myRadio = new RadioPlayer("https://stream.zeno.fm/ajnldia1z5utv"); // URL de tu stream de radio
-
-        // Intentar iniciar la reproducción automáticamente
-        myRadio.play();
-
-        // Mantener la reproducción en segundo plano
-        document.addEventListener("visibilitychange", () => {
-            if (document.visibilityState === "visible" && !myRadio.isPlaying) {
-                myRadio.play(); // Reproducir cuando se vuelve visible
-            }
-        });
-
-        // Agregar eventos para manejar el audio
-        window.addEventListener("blur", () => {
-            if (myRadio.isPlaying) {
-                console.log("La ventana está inactiva. Manteniendo la reproducción.");
-            }
-        });
-
-        window.addEventListener("focus", () => {
-            if (!myRadio.isPlaying) {
-                myRadio.play(); // Reproducir al enfocar la ventana
-            }
-        });
-
-        // Verificar si el audio se reproduce en segundo plano y con la pantalla apagada
-        const checkAudioPlayback = () => {
-            const audio = document.querySelector("#player audio");
-            if (audio) {
-                if (audio.paused && document.visibilityState === 'hidden') {
-                    console.log("La reproducción se ha detenido en segundo plano. Intentando reiniciar.");
-                    audio.play().catch(err => console.error("Error al reiniciar la reproducción:", err));
-                }
-            }
-        };
-
-        document.addEventListener("visibilitychange", checkAudioPlayback);
     </script>
 
     <div class="background_hora">
