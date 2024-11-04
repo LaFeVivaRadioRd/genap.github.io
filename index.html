@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="theme-color" content="#08298a">
-    <title> Radio GenAp</title>
+    <title>Radio GenAp</title>
 
     <!-- Añadir el favicon -->
     <link rel="icon" href="https://i.ibb.co/T414C4v/Logo-Gen-Ap.png" type="image/x-icon">
@@ -23,12 +23,12 @@
             color: #272829;
         }
 
-      /* Estilos para la imagen del cover */
-#player .cover-image {
-    width: 150px; /* Cambia el tamaño según lo desees */
-    height: 150px; /* Cambia el tamaño según lo desees */
-    box-shadow: 0 1px 51px rgba(0, 0, 0, 0.3); /* Sombra reducida */
-}
+        /* Estilos para la imagen del cover */
+        #player .cover-image {
+            width: 150px;
+            height: 150px;
+            box-shadow: 0 1px 51px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 
@@ -38,27 +38,13 @@
     <header id="header">
         <nav class="nav-menu">
             <ul>
-                <li><a target="_blank" href=" https://play.google.com/store/apps/details?id=radiogenap.cristiana"><i class="fab fa-google-play"></i> <span>Descarga nuestra APP</span></a></li>
-                
-                    </a>
-                </li>
+                <li><a target="_blank" href="https://play.google.com/store/apps/details?id=radiogenap.cristiana"><i class="fab fa-google-play"></i> <span>Descarga nuestra APP</span></a></li>
                 <li><a target="_blank" href="https://www.facebook.com/radiogenapcristiana"><i class="fab fa-facebook-square" alt="Facebook"></i><span>Facebook</span></a></li>
-                <li>
-                    <a href="https://api.whatsapp.com/send?phone=522361079311&text=Hola%20escucho%20la%20radio" target="_blank">
-                        <i class="fab fa-whatsapp-square" alt="Whatsapp"></i>
-                        <span>Whatsapp</span>
-                    </a>
-                <li>
-                    <a target="_blank" href="https://www.youtube.com/@luisbuenotv">
-                        <i class="fab fa-youtube"></i>
-                        <span>YouTube</span>
-                    </a>
-                </li>
-                <li><a target="_blank" href=" https://www.tiktok.com/@radiogenapcristiana"><i class="fab fa-tiktok"></i><span>TikTok</span></a></li>
+                <li><a href="https://api.whatsapp.com/send?phone=522361079311&text=Hola%20escucho%20la%20radio" target="_blank"><i class="fab fa-whatsapp-square" alt="Whatsapp"></i><span>Whatsapp</span></a></li>
+                <li><a target="_blank" href="https://www.youtube.com/@luisbuenotv"><i class="fab fa-youtube"></i><span>YouTube</span></a></li>
+                <li><a target="_blank" href="https://www.tiktok.com/@radiogenapcristiana"><i class="fab fa-tiktok"></i><span>TikTok</span></a></li>
                 <li><a target="_blank" href="https://www.instagram.com/radiogenapcristiana"><i class="fab fa-instagram"></i><span>Instagram</span></a></li>
                 <li><a target="_blank" href="https://www.paypal.me/cantanteluisbueno"><i class="fab fa-paypal"></i><span>PayPal</span></a></li>
-
-
             </ul>
         </nav>
     </header>
@@ -114,6 +100,28 @@
             elementoID.innerHTML = horalocal;
         }
         setInterval(reloj, 1000);
+    </script>
+
+    <script>
+        // Mantener la pantalla activa usando la API Wake Lock
+        let wakeLock = null;
+
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                    wakeLock.addEventListener('release', () => {
+                        console.log('Wake Lock released');
+                    });
+                    console.log('Wake Lock active');
+                }
+            } catch (err) {
+                console.error(`${err.name}, ${err.message}`);
+            }
+        }
+
+        // Solicitar Wake Lock cuando el usuario interactúe
+        document.addEventListener('click', requestWakeLock);
     </script>
 </div>
 
