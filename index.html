@@ -128,6 +128,19 @@
         $("body").toggleClass("mobile-nav-active");
         $(".mobile-nav-toggle i").toggleClass("fa-bars fa-times");
     });
+
+    // Verificar si el audio se reproduce en segundo plano y con la pantalla apagada
+    const checkAudioPlayback = () => {
+        const audio = document.querySelector("#player audio");
+        if (audio) {
+            if (audio.paused && document.visibilityState === 'hidden') {
+                console.log("La reproducción se ha detenido en segundo plano. Intentando reiniciar.");
+                audio.play().catch(err => console.error("Error al reiniciar la reproducción:", err));
+            }
+        }
+    };
+
+    document.addEventListener("visibilitychange", checkAudioPlayback);
 </script>
 </body>
 </html>
