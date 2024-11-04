@@ -28,7 +28,7 @@ class RadioPlayer {
 }
 
 // Crear una instancia del reproductor de radio con la URL de tu stream
-const myRadio = new RadioPlayer("URL_DE_TU_RADIO_STREAM"); // Reemplaza con la URL de tu stream de radio
+const myRadio = new RadioPlayer("https://stream.zeno.fm/ajnldia1z5utv"); // Reemplaza con la URL de tu stream de radio
 
 // Intentar iniciar la reproducción automáticamente
 myRadio.play();
