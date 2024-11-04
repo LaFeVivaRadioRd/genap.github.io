@@ -6,7 +6,6 @@
     <meta name="theme-color" content="#08298a">
     <title> Radio GenAp</title>
 
-    <!-- Añadir el favicon -->
     <link rel="icon" href="https://i.ibb.co/T414C4v/Logo-Gen-Ap.png" type="image/x-icon">
     <link href="css/style.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -21,12 +20,30 @@
             flex-direction: column;
             color: #272829;
         }
-
-        /* Estilos para la imagen del cover */
         #player .cover-image {
-            width: 150px; /* Cambia el tamaño según lo desees */
-            height: 150px; /* Cambia el tamaño según lo desees */
-            box-shadow: 0 1px 51px rgba(0, 0, 0, 0.3); /* Sombra reducida */
+            width: 150px; 
+            height: 150px; 
+            box-shadow: 0 1px 51px rgba(0, 0, 0, 0.3); 
+        }
+        /* Estilos para los botones */
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .control-button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #4CAF50; /* Color de fondo verde */
+            color: white; /* Color de texto blanco */
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .control-button:hover {
+            background-color: #45a049; /* Color de fondo verde más oscuro al pasar el mouse */
         }
     </style>
 </head>
@@ -38,10 +55,10 @@
         <nav class="nav-menu">
             <ul>
                 <li><a target="_blank" href="https://play.google.com/store/apps/details?id=radiogenap.cristiana"><i class="fab fa-google-play"></i> <span>Descarga nuestra APP</span></a></li>
-                <li><a target="_blank" href="https://www.facebook.com/radiogenapcristiana"><i class="fab fa-facebook-square"></i><span>Facebook</span></a></li>
+                <li><a target="_blank" href="https://www.facebook.com/radiogenapcristiana"><i class="fab fa-facebook-square" alt="Facebook"></i><span>Facebook</span></a></li>
                 <li>
                     <a href="https://api.whatsapp.com/send?phone=522361079311&text=Hola%20escucho%20la%20radio" target="_blank">
-                        <i class="fab fa-whatsapp-square"></i>
+                        <i class="fab fa-whatsapp-square" alt="Whatsapp"></i>
                         <span>Whatsapp</span>
                     </a>
                 </li>
@@ -59,45 +76,13 @@
     </header>
 
     <div id="player"></div>
-    <script>
-        $("#player").lunaradio({
-            userinterface: "big",
-            backgroundcolor: "rgba(9,15,25,0.8)",
-            fontcolor: "#ffffff",
-            highlightcolor: "#000000",
-            fontname: "Saira Condensed",
-            googlefont: "Saira+Condensed:wght@100",
-            fontratio: "0.4",
-            radioname: "Live Music",
-            scroll: "false",
-            coverimage: "https://i.ibb.co/T414C4v/Logo-Gen-Ap.png",
-            onlycoverimage: "false",
-            coverstyle: "animated",
-            usevisualizer: "real",
-            visualizertype: "2",
-            itunestoken: "",
-            metadatatechnic: "fallback",
-            corsproxy: "",
-            usestreamcorsproxy: "false",
-            streamurl: " URL de tu stream de radio", // URL de tu stream de radio
-            streamtype: "zeno",
-            idzeno: "",
-            icecastmountpoint: "",
-            shoutcastpath: "",
-            shoutcastid: "1",
-            metadatainterval: "26000",
-            volume: "100",
-            debug: "false",
-            autoplay: "true",
-            displayliveicon: "true",
-            visualizeropacity: "1.0",
-            multicolorvisualizer: "true",
-            color1: "#00FF00",
-            color2: "#ffff00",
-            color3: "#FF1F6F",
-            color4: "#FF1F6F",
-        });
+    <div class="controls">
+        <button class="control-button" id="playButton">Play</button>
+        <button class="control-button" id="pauseButton">Pause</button>
+        <button class="control-button" id="stopButton">Stop</button>
+    </div>
 
+    <script>
         class RadioPlayer {
             constructor(streamUrl) {
                 this.audio = new Audio(streamUrl);
@@ -106,7 +91,6 @@
                 this.isPlaying = false; // Estado de reproducción
             }
 
-            // Método para iniciar la reproducción
             play() {
                 if (!this.isPlaying) {
                     this.audio.play().then(() => {
@@ -118,7 +102,13 @@
                 }
             }
 
-            // Método para detener la reproducción
+            pause() {
+                if (this.isPlaying) {
+                    this.audio.pause();
+                    this.isPlaying = false;
+                }
+            }
+
             stop() {
                 this.audio.pause();
                 this.audio.currentTime = 0; // Reiniciar al principio
@@ -139,44 +129,19 @@
             }
         });
 
-        // Agregar eventos para manejar el audio
-        window.addEventListener("blur", () => {
-            if (myRadio.isPlaying) {
-                console.log("La ventana está inactiva. Manteniendo la reproducción.");
-            }
+        // Controlar la reproducción con los botones
+        document.getElementById("playButton").addEventListener("click", () => {
+            myRadio.play();
         });
 
-        window.addEventListener("focus", () => {
-            if (!myRadio.isPlaying) {
-                myRadio.play(); // Reproducir al enfocar la ventana
-            }
+        document.getElementById("pauseButton").addEventListener("click", () => {
+            myRadio.pause();
         });
-    </script>
 
-    <div class="background_hora">
-        <div id="relogio">15:00:05</div>
-    </div>
-    <script>
-        function reloj() {
-            let elementoID = document.getElementById('relogio');
-            let horalocal = new Date().toLocaleTimeString('es');
-            elementoID.innerHTML = horalocal;
-        }
-        setInterval(reloj, 1000);
+        document.getElementById("stopButton").addEventListener("click", () => {
+            myRadio.stop();
+        });
     </script>
 </div>
-
-<footer style="display:grid;align-content:end">
-    <div style="background-color:#222;color:#fff;text-align:center;padding:10px"> 
-        &copy; Copyright 2024 - <a href="http://www.google.com">LuBuDesign +522361079311</a> 
-    </div>
-</footer>
-
-<script>
-    $(".mobile-nav-toggle").click(function(){
-        $("body").toggleClass("mobile-nav-active");
-        $(".mobile-nav-toggle i").toggleClass("fa-bars fa-times");
-    });
-</script>
 </body>
 </html>
