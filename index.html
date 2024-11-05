@@ -80,13 +80,21 @@
             color4: "#FF1F6F",
         });
 
+        // Mantener la radio reproduciendo en segundo plano
         document.addEventListener("visibilitychange", function() {
             if (document.hidden) {
                 radio.lunaradio('play');
             } else {
-                radio.lunaradio('pause');
+                radio.lunaradio('play');
             }
         });
+
+        // Evitar que la radio se detenga en segundo plano (reintentar cada 5 segundos)
+        setInterval(() => {
+            if (document.hidden) {
+                radio.lunaradio('play');
+            }
+        }, 5000);
     </script>
 
     <div class="background_hora">
