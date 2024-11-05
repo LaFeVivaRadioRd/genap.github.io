@@ -83,9 +83,9 @@
         // Mantener la radio reproduciendo en segundo plano
         document.addEventListener("visibilitychange", function() {
             if (document.hidden) {
-                radio.lunaradio('play');
+                radio.lunaradio('pause');  // Pausa la radio si se oculta
             } else {
-                radio.lunaradio('play');
+                radio.lunaradio('play');   // Reanuda la radio si se muestra
             }
         });
 
