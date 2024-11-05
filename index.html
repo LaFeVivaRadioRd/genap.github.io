@@ -29,6 +29,20 @@
             height: 150px;
             box-shadow: 0 1px 51px rgba(0, 0, 0, 0.3);
         }
+
+        /* Estilos para la notificación flotante */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
     </style>
 </head>
 
@@ -110,6 +124,9 @@
     </script>
 </div>
 
+<!-- Notificación flotante -->
+<div class="notification" id="notification">¡Bienvenido a Radio GenAp! Disfruta de nuestra música en vivo.</div>
+
 <footer style="display:grid;align-content:end">
     <div style="background-color:#222;color:#fff;text-align:center;padding:10px"> 
         &copy; Copyright 2024 - <a href="http://www.google.com">LuBuDesign +522361079311</a> 
@@ -120,6 +137,17 @@
     $(".mobile-nav-toggle").click(function(){
         $("body").toggleClass("mobile-nav-active");
         $(".mobile-nav-toggle i").toggleClass("fa-bars fa-times");
+    });
+
+    // Mostrar notificación flotante
+    function showNotification() {
+        const notification = $("#notification");
+        notification.fadeIn(400).delay(3000).fadeOut(400); // Muestra la notificación por 3 segundos
+    }
+
+    // Llamar a la función para mostrar la notificación
+    $(document).ready(function() {
+        showNotification();
     });
 </script>
 </body>
