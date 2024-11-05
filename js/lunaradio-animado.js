@@ -1,4 +1,4 @@
-// script.js
+// lunaradio-animado.js
 
 // Inicializar la radio
 const radio = $("#player").lunaradio({
