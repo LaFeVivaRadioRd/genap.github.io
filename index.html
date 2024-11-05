@@ -109,34 +109,6 @@
                 radio.lunaradio('play');
             }
         }, 5000);
-
-        // Mantener la pantalla encendida con Wake Lock
-        let wakeLock = null;
-
-        async function requestWakeLock() {
-            try {
-                wakeLock = await navigator.wakeLock.request('screen');
-                wakeLock.addEventListener('release', () => {
-                    console.log('Wake lock released!');
-                });
-                console.log('Wake lock acquired!');
-            } catch (err) {
-                console.error('Failed to acquire wake lock', err);
-            }
-        }
-
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') {
-                requestWakeLock();
-            } else {
-                if (wakeLock !== null) {
-                    wakeLock.release();
-                }
-            }
-        });
-
-        // Llamar a la función para asegurarse de que se solicita el wake lock al cargar la página
-        requestWakeLock();
     </script>
 
     <div class="background_hora">
@@ -167,15 +139,15 @@
         $(".mobile-nav-toggle i").toggleClass("fa-bars fa-times");
     });
 
-    // Mostrar notificación flotante
+    // Mostrar notificación flotante cada 5 segundos
     function showNotification() {
         const notification = $("#notification");
         notification.fadeIn(400).delay(3000).fadeOut(400); // Muestra la notificación por 3 segundos
     }
 
-    // Llamar a la función para mostrar la notificación
+    // Llamar a la función para mostrar la notificación cada 5 segundos
     $(document).ready(function() {
-        showNotification();
+        setInterval(showNotification, 5000); // Ejecutar cada 5 segundos
     });
 </script>
 </body>
