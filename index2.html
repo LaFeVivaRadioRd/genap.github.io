@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Neumórfica</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #e0e5ec;
+        }
+
+        .radio-container {
+            position: relative;
+            width: 90%; /* Ancho adaptativo */
+            max-width: 320px; /* Límite superior en pantallas grandes */
+            padding: 20px;
+            background: #e0e5ec;
+            border-radius: 20px;
+            box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .menu {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        #menu-btn {
+            background: #e0e5ec;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+            cursor: pointer;
+            font-size: 18px;
+            color: #555;
+        }
+
+        #menu-list {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: #e0e5ec;
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+            padding: 10px;
+        }
+
+        #menu-list li {
+            list-style: none;
+            margin: 5px 0;
+        }
+
+        #menu-list a {
+            text-decoration: none;
+            color: #555;
+            font-weight: bold;
+        }
+
+        /* Logo de la radio */
+        .logo {
+            width: 100%;
+            max-width: 150px;
+            margin: 0 auto 20px;
+        }
+
+        .logo img {
+            width: 100%;
+            display: block;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .logo img.playing {
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Controles de la radio */
+        .player {
+            margin-top: 20px;
+        }
+
+        #play-btn {
+            font-size: 24px;
+            background: #e0e5ec;
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+            cursor: pointer;
+            color: black; /* Establece el color del ícono a negro */
+            transition: all 0.3s ease;
+        }
+
+        #play-btn.playing {
+            color: black; /* Asegura que el ícono de pausa también sea negro */
+        }
+
+        #volume-slider {
+            width: 100%;
+            margin: 20px 0;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 10px;
+            background: #e0e5ec;
+            border-radius: 10px;
+            box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+            outline: none;
+            cursor: pointer;
+        }
+
+        #volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #e0e5ec;
+            border-radius: 50%;
+            box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+            cursor: pointer;
+        }
+
+        /* Medios y tamaños de pantalla responsivos */
+        @media (max-width: 480px) {
+            #play-btn {
+                font-size: 20px;
+                padding: 12px;
+            }
+
+            .logo {
+                max-width: 120px;
+            }
+
+            .radio-container {
+                width: 95%; /* Ajusta el ancho de la caja */
+                padding: 15px; /* Menos relleno */
+            }
+
+            #menu-btn {
+                font-size: 16px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="radio-container">
+        <!-- Botón de menú hamburguesa -->
+        <div class="menu">
+            <button id="menu-btn">☰</button>
+            <ul id="menu-list">
+                <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+                <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+                <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+            </ul>
+        </div>
+
+        <!-- Logo animado -->
+        <div class="logo">
+            <img id="radio-logo" src="https://i.ibb.co/T414C4v/Logo-Gen-Ap.png" alt="Logo de la Radio">
+        </div>
+
+        <!-- Reproductor de radio -->
+        <div class="player">
+            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+            <button id="play-btn">▶️</button>
+        </div>
+    </div>
+
+    <script>
+        // URL de la radio
+        const radioUrl = "https://stream.zeno.fm/ajnldia1z5utv";
+
+        const audio = new Audio(radioUrl);
+        const playBtn = document.getElementById("play-btn");
+        const volumeSlider = document.getElementById("volume-slider");
+        const menuBtn = document.getElementById("menu-btn");
+        const menuList = document.getElementById("menu-list");
+        const radioLogo = document.getElementById("radio-logo");
+
+        // Reproducción automática y en segundo plano
+        audio.autoplay = true;
+        audio.loop = true;  // Hace que la radio se repita automáticamente
+
+        // Botón de reproducción/pausa
+        playBtn.addEventListener("click", () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.textContent = "⏸️"; // Cambia a pausa
+                playBtn.classList.add("playing");
+                radioLogo.classList.add("playing");
+            } else {
+                audio.pause();
+                playBtn.textContent = "▶️"; // Cambia a play
+                playBtn.classList.remove("playing");
+                radioLogo.classList.remove("playing");
+            }
+        });
+
+        // Control del volumen
+        volumeSlider.addEventListener("input", (e) => {
+            audio.volume = e.target.value;
+        });
+
+        // Mostrar/ocultar menú
+        menuBtn.addEventListener("click", () => {
+            menuList.style.display = menuList.style.display === "block" ? "none" : "block";
+        });
+
+        // Mantener la radio sonando al estar en segundo plano (sin pausar)
+        window.addEventListener("focus", () => {
+            audio.play();
+        });
+
+        window.addEventListener("blur", () => {
+            audio.play();
+        });
+    </script>
+</body>
+</html>
