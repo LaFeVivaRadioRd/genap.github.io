@@ -62,12 +62,21 @@
     </a>
 </li>
                 <li><a target="_blank" href="https://www.paypal.me/cantanteluisbueno"><i class="fab fa-paypal"></i><span>PayPal</span></a></li>
-<li>
-    <a target="_blank" rel="noopener noreferrer" href="https://lafevivaradiord.github.io/reproductormp3.github.io/">
+
+                <li>
+    <a id="abrirReproductor" href="https://lafevivaradiord.github.io/reproductormp3.github.io/">
         <i class="fas fa-music"></i>
         <span>Reproductor MP3</span>
     </a>
 </li>
+
+<script>
+    document.getElementById("abrirReproductor").addEventListener("click", function(event) {
+        event.preventDefault(); // Evita que el enlace se abra en la WebView
+        window.open(this.href, "_blank"); // Abre en el navegador externo
+    });
+</script>
+
 
 
                 <li><a href="https://lafevivaradiord.github.io/genap.github.io/politicasgenap.html" target="_blank"><i class="fas fa-copyright"></i><span>Política de Privacidad</span></a>
