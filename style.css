@@ -1,0 +1,266 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #1e1e1e;
+    color: #fff;
+}
+
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #2a2a2a;
+    box-shadow: inset 5px 5px 15px #121212, inset -5px -5px 15px #3a3a3a;
+}
+
+.hamburger {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.hamburger:hover {
+    color: #ff5722; /* Cambio de color al pasar el mouse */
+}
+
+/* Redes Sociales */
+#social-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px; /* Ancho ajustado para mayor accesibilidad */
+    height: 100%;
+    background-image: url(imagen/fondo.JPG); /* Agrega aquí la ruta de tu imagen */
+    background-size: cover; /* Asegura que la imagen cubra todo el área */
+    background-position: center; /* Centra la imagen */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 9999; /* Asegura que el menú se sobreponga a otros elementos */
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease;
+}
+
+/* Agregar capa oscura sobre la imagen */
+#social-menu::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semi-transparente */
+    z-index: 1; /* Asegura que el fondo oscuro quede debajo de los íconos */
+}
+
+/* Redefinir el contenedor de las redes sociales para que el contenido se vea encima de la capa oscura */
+#social-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 20px 0; /* Ajustado para dar espacio */
+    position: relative; /* Asegura que los íconos queden sobre la capa oscura */
+    z-index: 2;
+}
+
+#social-menu ul li {
+    margin: 10px 0;
+}
+
+#social-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+#social-menu ul li a:hover {
+    color: #ff5722; /* Cambio de color al pasar el mouse */
+}
+
+#social-menu button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #ff5722;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+#social-menu button:hover {
+    background: #ff784e; /* Efecto de hover */
+}
+
+.social-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Botón de cierre */
+#social-menu .close-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 2rem;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 10000; /* Asegura que el botón esté por encima de otros elementos */
+}
+
+#social-menu .close-btn:hover {
+    color: #ff5722; /* Cambio de color al pasar el mouse */
+}
+
+/* Main Content */
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container {
+    animation: heartbeat 2s infinite;
+    margin-bottom: 40px;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+#logo {
+    width: 200px;
+    height: auto;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Volume Slider */
+#volume-slider {
+    width: 200%;
+    max-width: 400px;
+    height: 10px;
+    border-radius: 5px;
+    background: #333;
+    appearance: none;
+    transition: background 0.3s ease;
+}
+
+#volume-slider:hover {
+    background: #ff5722; /* Cambio de color al pasar el mouse */
+}
+
+#volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ff5722;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#volume-slider::-webkit-slider-thumb:hover {
+    background: #ff784e; /* Cambio de color al pasar el mouse */
+}
+
+/* Play/Stop Button */
+#play-btn {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #222222, #1a1a1a);
+    box-shadow: 5px 5px 15px #121212, -5px -5px 15px #3a3a3a;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+#play-btn:hover {
+    transform: scale(1.1); /* Efecto de hover para el botón */
+}
+
+#play-btn.play::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid #fff;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+#play-btn.stop::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: #fff;
+}
+
+/* Footer */
+footer {
+    background: #2a2a2a;
+    padding: 10px;
+    box-shadow: inset 5px 5px 15px #121212, inset -5px -5px 15px #3a3a3a;
+}
+
+/* Cambiar solo el color de la letra (texto) del footer */
+footer * {
+    color: white; /* Esto aplicará el color blanco a todo el texto dentro del footer */
+}
+
+/* Estilo para el texto con fondo para mejorar visibilidad */
+.text-background {
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo oscuro semi-transparente */
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1.5rem; /* Tamaño de fuente ajustado */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Sombra para mejorar la visibilidad */
+}
+
+.text-background h1,
+.text-background h2,
+.text-background p {
+    margin: 0;
+}
