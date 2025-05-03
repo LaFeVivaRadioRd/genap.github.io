@@ -12,7 +12,7 @@
 </head>
 <body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen relative overflow-x-hidden">
 
-  <!-- Botón de menú (arriba a la derecha) -->
+  <!-- Botón de menú -->
   <div class="absolute top-4 right-4 z-50">
     <button id="menuBtn" class="text-white text-2xl focus:outline-none">
       <i class="fas fa-bars"></i>
@@ -82,21 +82,24 @@
   <script>
     const menuBtn = document.getElementById('menuBtn');
     const menuPanel = document.getElementById('menuPanel');
-    menuBtn.addEventListener('click', () => {
-      menuPanel.classList.toggle('-translate-x-full');
-      menuPanel.classList.toggle('translate-x-0');
-    });
-
     const playBtn = document.getElementById('playBtn');
     const audio = document.getElementById('audio');
     const volumeSlider = document.getElementById('volumeSlider');
+    const shareBtn = document.getElementById('shareBtn');
+
     let isPlaying = false;
 
+    // Volumen guardado
     const savedVolume = localStorage.getItem('radioVolume');
     if (savedVolume !== null) {
       audio.volume = parseFloat(savedVolume);
       volumeSlider.value = savedVolume;
     }
+
+    menuBtn.addEventListener('click', () => {
+      menuPanel.classList.toggle('-translate-x-full');
+      menuPanel.classList.toggle('translate-x-0');
+    });
 
     playBtn.addEventListener('click', () => {
       if (!isPlaying) {
@@ -115,7 +118,6 @@
       localStorage.setItem('radioVolume', volumeSlider.value);
     });
 
-    const shareBtn = document.getElementById('shareBtn');
     shareBtn.addEventListener('click', () => {
       if (navigator.share) {
         navigator.share({
@@ -128,6 +130,7 @@
       }
     });
 
+    // Instalación PWA
     let deferredPrompt;
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
@@ -146,6 +149,7 @@
       });
     });
 
+    // RSS Noticias
     async function fetchRSS() {
       const rssUrls = [
         'https://www.meganoticias.mx/tehuacan/rss',
@@ -168,12 +172,13 @@
         for (const url of rssUrls) {
           await loadNewsFromUrl(url);
         }
-        await new Promise(resolve => setTimeout(resolve, 120000));
+        await new Promise(resolve => setTimeout(resolve, 120000)); // cada 2 minutos
       }
     }
 
     fetchRSS();
 
+    // Estilo para marquee
     const style = document.createElement('style');
     style.innerHTML = `
       @keyframes marquee {
@@ -185,9 +190,8 @@
       }
     `;
     document.head.appendChild(style);
-  </script>
 
-  <script>
+    // Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/genap.github.io/sw.js')
         .then(reg => console.log('SW registrado:', reg))
