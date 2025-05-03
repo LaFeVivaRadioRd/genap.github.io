@@ -151,10 +151,10 @@
 
   <!-- Service Worker registration for PWA install -->
   <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('SW registrado:', reg))
-      .catch(err => console.error('SW fallo:', err));
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/genap.github.io/sw.js')
+        .then(reg => console.log('SW registrado:', reg))
+        .catch(err => console.error('SW fallo:', err));
     }
   </script>
 </body>
