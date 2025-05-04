@@ -15,41 +15,6 @@
       background-size: cover;
       background-position: center;
     }
-
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 8px;
-      background: #ddd;
-      outline: none;
-      border-radius: 5px;
-      transition: background 0.3s ease;
-    }
-
-    input[type="range"]::-webkit-slider-runnable-track {
-      height: 8px;
-      border-radius: 5px;
-      background: #ddd;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 20px;
-      height: 20px;
-      background: #FFA447;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    input[type="range"]:focus {
-      outline: none;
-    }
-
-    input[type="range"]:hover {
-      background: #bbb;
-    }
   </style>
 </head>
 <body class="text-white flex flex-col items-center justify-center min-h-screen relative overflow-x-hidden">
@@ -98,12 +63,12 @@
   </div>
 
   <div class="text-center mb-4">
-    <h3 id="songTitle" class="text-xl font-semibold">Título de la Canción</h3>
-    <p id="songArtist" class="text-lg">Artista</p>
+    <h3 id="songTitle" class="text-xl font-semibold"></h3>
+    <p id="songArtist" class="text-lg"></p>
   </div>
 
   <div class="w-11/12 mb-6">
-    <label for="volumeSlider" class="block text-center mb-2">Volumen</label>
+    <label for="volumeSlider" class="block text-center mb-2"></label>
     <div class="flex justify-between items-center">
       <input type="range" id="volumeSlider" min="0" max="1" step="0.01" class="w-full accent-[#FFA447] h-8">
       <span id="volumeLabel" class="ml-4 text-lg">100%</span>
